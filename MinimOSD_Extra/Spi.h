@@ -3,9 +3,9 @@
 
 // Get the common arduino functions
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "Arduino.h"
+    #include "Arduino.h"
 #else
-	#include "wiring.h"
+    #include "wiring.h"
 #endif
 
 #define SCK_PIN   13

@@ -188,8 +188,8 @@ void readSettings() {
     switch_mode = EEPROM.read(switch_mode_ADDR);
     panel_auto_switch = EEPROM.read(AUTO_SCREEN_SWITC_ADD);
 //    if (EEPROM.read(ch_toggle_ADDR) < 4 || EEPROM.read(ch_toggle_ADDR) > 8){
-//     	EEPROM.write(ch_toggle_ADDR, 5);
-//	}
+//         EEPROM.write(ch_toggle_ADDR, 5);
+//    }
     ch_toggle = EEPROM.read(ch_toggle_ADDR);
     //  battp = EEPROM.read(battp_ADDR);
     rssical = EEPROM.read(OSD_RSSI_HIGH_ADDR);
@@ -385,4 +385,3 @@ void updateSettings(byte panelu, byte panel_x, byte panel_y, byte panel_s ) {
         for(panel = 0; panel < npanels; panel++) readPanelSettings();
     } 
 }
-

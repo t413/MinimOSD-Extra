@@ -2,9 +2,9 @@
 #include "ArduCam_Max7456.h"
 // Get the common arduino functions
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "Arduino.h"
+    #include "Arduino.h"
 #else
-	#include "wiring.h"
+    #include "wiring.h"
 #endif
 #include "Spi.h"
 #include <EEPROM.h>
@@ -306,13 +306,13 @@ OSD::write_NVM(int font_count, uint8_t *character_bitmap)
 //------------------ pure virtual ones (just overriding) ---------------------
 
 int  OSD::available(void){
-	return 0;
+    return 0;
 }
 int  OSD::read(void){
-	return 0;
+    return 0;
 }
 int  OSD::peek(void){
-	return 0;
+    return 0;
 }
 void OSD::flush(void){
 }
@@ -332,15 +332,15 @@ void OSD::println_P(const prog_char_t *s) {
 }
 
 void OSD::printf(const char *fmt, ...) {
-		char buf[128];
-		va_list ap;
-		va_start(ap, fmt);
-		vsnprintf(buf, 128, fmt, ap);
-		va_end(ap);
+        char buf[128];
+        va_list ap;
+        va_start(ap, fmt);
+        vsnprintf(buf, 128, fmt, ap);
+        va_end(ap);
 }
 
 void OSD::_printf_P(const char *fmt, ...) {
-		char buf[128];
+        char buf[128];
     va_list ap;
     va_start(ap, fmt);
     vsnprintf(buf, 128, fmt, ap);

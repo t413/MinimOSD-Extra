@@ -47,7 +47,7 @@ void setHomeVars(OSD &osd)
 {
   float dstlon, dstlat;
   long bearing;
-  
+
 //  if(osd_throttle > 3 && takeoff_heading == -400)
 //    takeoff_heading = osd_heading;
   osd_alt_to_home = (osd_alt - osd_home_alt);
@@ -105,16 +105,16 @@ void setFdataVars(){
     tdistance = 0;
     FTime = (millis()/1000);
   }
-  
+
 //  if ((millis() - dt) >= 1000){
-//    if (osd_groundspeed > 1.0) tdistance = tdistance + (((millis() - dt) / 1000) * osd_groundspeed); 
+//    if (osd_groundspeed > 1.0) tdistance = tdistance + (((millis() - dt) / 1000) * osd_groundspeed);
 //  dt = millis();
 //  }
 
   if (osd_groundspeed > 1.0) tdistance += (osd_groundspeed * (millis() - runt) / 1000.0);
   mah_used += (osd_curr_A * 10.0 * (millis() - runt) / 3600000.0);
   runt = millis();
-    
+
   if (takeofftime == 1){
     if (osd_home_distance > max_home_distance) max_home_distance = osd_home_distance;
     if (osd_airspeed > max_osd_airspeed) max_osd_airspeed = osd_airspeed;
@@ -131,4 +131,3 @@ if (EEPROM.read(FW_VERSION1_ADDR) != 2) EEPROM.write(FW_VERSION1_ADDR, 2);
 if (EEPROM.read(FW_VERSION2_ADDR) != 4) EEPROM.write(FW_VERSION2_ADDR, 4);
 if (EEPROM.read(FW_VERSION3_ADDR) != 1) EEPROM.write(FW_VERSION3_ADDR, 1);
 }
-
