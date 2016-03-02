@@ -3,11 +3,8 @@
 // Unit tests for the AP_Math euler code
 //
 
-#include <FastSerial.h>
 #include <AP_Common.h>
 #include <AP_Math.h>
-
-FastSerialPort(Serial, 0);
 
 #ifdef DESKTOP_BUILD
 // all of this is needed to build with SITL

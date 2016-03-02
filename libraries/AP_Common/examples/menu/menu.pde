@@ -1,8 +1,5 @@
 
-#include <FastSerial.h>
 #include <AP_Common.h>
-
-FastSerialPort0(Serial);
 
 int8_t
 menu_test(uint8_t argc, const Menu::arg *argv)
@@ -40,4 +37,3 @@ void
 loop(void)
 {
 }
-

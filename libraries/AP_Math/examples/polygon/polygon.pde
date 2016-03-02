@@ -3,11 +3,8 @@
 // Unit tests for the AP_Math polygon code
 //
 
-#include <FastSerial.h>
 #include <AP_Common.h>
 #include <AP_Math.h>
-
-FastSerialPort(Serial, 0);
 
 /*
   this is the boundary of the 2010 outback challenge
@@ -104,9 +101,9 @@ void setup(void)
                 all_passed = false;
             }
         }
-    }    
+    }
     Serial.printf("%u usec/call\n", (unsigned)((micros() - start_time)/(count*ARRAY_LENGTH(test_points))));
-    Serial.println(all_passed?"ALL TESTS PASSED":"TEST FAILED");                  
+    Serial.println(all_passed?"ALL TESTS PASSED":"TEST FAILED");
 }
 
 void

@@ -94,7 +94,7 @@ typedef struct {
 #endif
 
 # undef PSTR
-# define PSTR(s) (__extension__({static prog_char __c[] PROGMEM = (s); \
+# define PSTR(s) (__extension__({static char __c[] PROGMEM = (s); \
                 (prog_char_t *)&__c[0];}))
 #endif
 
@@ -105,31 +105,31 @@ typedef struct {
 
 static inline int strcasecmp_P(const char *str1, const prog_char_t *pstr)
 {
-    return strcasecmp_P(str1, (const prog_char *)pstr);
+    return strcasecmp_P(str1, (const char *)pstr);
 }
 
 static inline int strcmp_P(const char *str1, const prog_char_t *pstr)
 {
-    return strcmp_P(str1, (const prog_char *)pstr);
+    return strcmp_P(str1, (const char *)pstr);
 }
 
 static inline size_t strlen_P(const prog_char_t *pstr)
 {
-    return strlen_P((const prog_char *)pstr);
+    return strlen_P((const char *)pstr);
 }
 
 static inline void *memcpy_P(void *dest, const prog_char_t *src, size_t n)
 {
-    return memcpy_P(dest, (const prog_char *)src, n);
+    return memcpy_P(dest, (const char *)src, n);
 }
 
-// strlcat_P() in AVR libc seems to be broken 
+// strlcat_P() in AVR libc seems to be broken
 static inline size_t strlcat_P(char *d, const prog_char_t *s, size_t bufsize)
 {
 	size_t len1 = strlen(d);
 	size_t len2 = strlen_P(s);
 	size_t ret = len1 + len2;
-    
+
 	if (len1+len2 >= bufsize) {
 		if (bufsize < (len1+1)) {
 			return ret;
@@ -145,7 +145,7 @@ static inline size_t strlcat_P(char *d, const prog_char_t *s, size_t bufsize)
 
 static inline char *strncpy_P(char *buffer, const prog_char_t *pstr, size_t buffer_size)
 {
-    return strncpy_P(buffer, (const prog_char *)pstr, buffer_size);
+    return strncpy_P(buffer, (const char *)pstr, buffer_size);
 }
 
 
@@ -162,7 +162,7 @@ static inline uintptr_t pgm_read_pointer(const void *s)
         } u;
         uint8_t i;
         for (i=0; i< sizeof(uintptr_t); i++) {
-            u.a[i] = pgm_read_byte(i + (const prog_char *)s);
+            u.a[i] = pgm_read_byte(i + (const char *)s);
         }
         return u.p;
     }
@@ -244,12 +244,12 @@ struct Location {
 #define AP_PRODUCT_ID_APM2ES_REV_C5	0x15 	// APM2 with MPU6000ES_REV_C5
 #define AP_PRODUCT_ID_APM2ES_REV_D6	0x16	// APM2 with MPU6000ES_REV_D6
 #define AP_PRODUCT_ID_APM2ES_REV_D7	0x17	// APM2 with MPU6000ES_REV_D7
-#define AP_PRODUCT_ID_APM2ES_REV_D8	0x18	// APM2 with MPU6000ES_REV_D8	
-#define AP_PRODUCT_ID_APM2_REV_C4	0x54	// APM2 with MPU6000_REV_C4 	
-#define AP_PRODUCT_ID_APM2_REV_C5	0x55	// APM2 with MPU6000_REV_C5 	
-#define AP_PRODUCT_ID_APM2_REV_D6	0x56	// APM2 with MPU6000_REV_D6 		
-#define AP_PRODUCT_ID_APM2_REV_D7	0x57	// APM2 with MPU6000_REV_D7 	
-#define AP_PRODUCT_ID_APM2_REV_D8	0x58	// APM2 with MPU6000_REV_D8 	
-#define AP_PRODUCT_ID_APM2_REV_D9	0x59	// APM2 with MPU6000_REV_D9 	
+#define AP_PRODUCT_ID_APM2ES_REV_D8	0x18	// APM2 with MPU6000ES_REV_D8
+#define AP_PRODUCT_ID_APM2_REV_C4	0x54	// APM2 with MPU6000_REV_C4
+#define AP_PRODUCT_ID_APM2_REV_C5	0x55	// APM2 with MPU6000_REV_C5
+#define AP_PRODUCT_ID_APM2_REV_D6	0x56	// APM2 with MPU6000_REV_D6
+#define AP_PRODUCT_ID_APM2_REV_D7	0x57	// APM2 with MPU6000_REV_D7
+#define AP_PRODUCT_ID_APM2_REV_D8	0x58	// APM2 with MPU6000_REV_D8
+#define AP_PRODUCT_ID_APM2_REV_D9	0x59	// APM2 with MPU6000_REV_D9
 
 #endif // _AP_COMMON_H

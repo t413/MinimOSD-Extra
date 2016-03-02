@@ -13,7 +13,6 @@
 /// @brief  The AP variable store.
 
 
-#include <FastSerial.h>
 #include <AP_Common.h>
 #include <AP_Math.h>
 
@@ -29,7 +28,7 @@
 #endif
 
 // some useful progmem macros
-#define PGM_UINT8(addr) pgm_read_byte((const prog_char *)addr)
+#define PGM_UINT8(addr) pgm_read_byte((const char *)addr)
 #define PGM_UINT16(addr) pgm_read_word((const uint16_t *)addr)
 #define PGM_POINTER(addr) pgm_read_pointer((const void *)addr)
 
@@ -874,16 +873,24 @@ void AP_Param::show_all(void)
 
         switch (type) {
         case AP_PARAM_INT8:
-            Serial.printf_P("%s: %d\n", s, (int)((AP_Int8 *)ap)->get());
+            Serial.print(s);
+            Serial.print(": ");
+            Serial.println((int)((AP_Int8 *)ap)->get());
             break;
         case AP_PARAM_INT16:
-            Serial.printf_P("%s: %d\n", s, (int)((AP_Int16 *)ap)->get());
+            Serial.print(s);
+            Serial.print(": ");
+            Serial.println((int)((AP_Int16 *)ap)->get());
             break;
         case AP_PARAM_INT32:
-            Serial.printf_P("%s: %ld\n", s, (long)((AP_Int32 *)ap)->get());
+            Serial.print(s);
+            Serial.print(": ");
+            Serial.println((long)((AP_Int32 *)ap)->get());
             break;
         case AP_PARAM_FLOAT:
-            Serial.printf_P("%s: %f\n", s, ((AP_Float *)ap)->get());
+            Serial.print(s);
+            Serial.print(": ");
+            Serial.println(((AP_Float *)ap)->get());
             break;
         default:
             break;

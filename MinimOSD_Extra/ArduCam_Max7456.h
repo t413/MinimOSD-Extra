@@ -2,6 +2,11 @@
 #ifndef ArduCam_Max7456_h
 #define ArduCam_Max7456_h
 
+#include <inttypes.h>
+#include <Stream.h>
+#include <avr/pgmspace.h>
+#include <AP_Common.h>
+
 /******* FROM DATASHEET *******/
 
 #define MAX7456_SELECT 6//SS
@@ -74,7 +79,7 @@
 
 //------------------ the OSD class -----------------------------------------------
 
-class OSD: public BetterStream
+class OSD: public Stream
 {
   public:
     OSD(void);
@@ -97,10 +102,24 @@ class OSD: public BetterStream
     virtual void    flush(void);
     virtual size_t write(uint8_t c);
     void write_NVM(int font_count, uint8_t *character_bitmap);
-    using BetterStream::write;
+    using Stream::write;
+
+    // Stream extensions (from BetterStream)
+    void print_P(const prog_char_t *);
+    void println_P(const prog_char_t *);
+    void printf(const char *, ...)
+        __attribute__ ((format(__printf__, 2, 3)));
+    void _printf_P(const char *, ...);
+        __attribute__ ((format(__printf__, 2, 3)));
+
+    virtual int     txspace(void);
+#define printf_P(fmt, ...) _printf_P((const char *)fmt, ## __VA_ARGS__)
+
   private:
     uint8_t start_col, start_row, col, row, video_mode, video_center;
+  private:
+        void _vprintf(unsigned char, const char *, va_list)
+            __attribute__ ((format(__printf__, 3, 0)));
 };
 
 #endif
-

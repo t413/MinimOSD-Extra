@@ -55,7 +55,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 
 // AVR Includes
-#include <FastSerial.h>
 #include <AP_Common.h>
 #include <AP_Math.h>
 #include <math.h>
@@ -91,8 +90,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 #define TELEMETRY_SPEED  57600  // How fast our MAVLink telemetry is coming to Serial port
 #define BOOTTIME         2000   // Time in milliseconds that we show boot loading bar and wait user input
 
-// Objects and Serial definitions
-FastSerialPort0(Serial);
 OSD osd; //OSD object 
 
 //SimpleTimer  mavlinkTimer;

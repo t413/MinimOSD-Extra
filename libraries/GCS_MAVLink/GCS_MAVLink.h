@@ -6,7 +6,7 @@
 #ifndef GCS_MAVLink_h
 #define GCS_MAVLink_h
 
-#include <BetterStream.h>
+#include <Stream.h>
 
 // we have separate helpers disabled to make it possible
 // to select MAVLink 1.0 in the arduino GUI build
@@ -21,10 +21,10 @@
 #include "include/mavlink/v1.0/mavlink_types.h"
 
 /// MAVLink stream used for HIL interaction
-extern BetterStream	*mavlink_comm_0_port;
+extern Stream	*mavlink_comm_0_port;
 
 /// MAVLink stream used for ground control communication
-extern BetterStream	*mavlink_comm_1_port;
+extern Stream	*mavlink_comm_1_port;
 
 /// MAVLink system definition
 extern mavlink_system_t mavlink_system;
@@ -88,26 +88,6 @@ static inline uint16_t comm_get_available(mavlink_channel_t chan)
 		break;
 	}
     return bytes;
-}
-
-
-/// Check for available transmit space on the nominated MAVLink channel
-///
-/// @param chan		Channel to check
-/// @returns		Number of bytes available, -1 for error
-static inline int comm_get_txspace(mavlink_channel_t chan)
-{
-    switch(chan) {
-	case MAVLINK_COMM_0:
-		return mavlink_comm_0_port->txspace();
-		break;
-	case MAVLINK_COMM_1:
-		return mavlink_comm_1_port->txspace();
-		break;
-	default:
-		break;
-	}
-    return -1;
 }
 
 #define MAVLINK_USE_CONVENIENCE_FUNCTIONS
