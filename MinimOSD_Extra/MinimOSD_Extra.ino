@@ -84,9 +84,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 #include "SimpleFIFO.h"
 
 SoftwareSerial frSkySerial(6, 5, true); //true for inverted logic!
-frSkySerial.begin(9600);
-
-FrSky frSky();
+FrSky frSky;
 
 /* *************************************************/
 /* ***************** DEFINITIONS *******************/
@@ -105,6 +103,7 @@ void setup() {
     Serial.begin(TELEMETRY_SPEED);
     // setup mavlink port
     mavlink_comm_0_port = &Serial;
+    frSkySerial.begin(9600);
 
 #ifdef membug
     Serial.println(freeMem());
@@ -122,7 +121,7 @@ void setup() {
 #ifdef membug
     osd.setPanel(1,1);
     osd.openPanel();
-    osd.printf("%i",freeMem());
+    osd.write(freeMem());
     osd.closePanel();
 #endif
 
@@ -180,12 +179,12 @@ void unplugSlaves(){
 void sendFrSkyData() {
     frskyCounter++;
     if (frskyCounter >= 25) { // Send 5000 ms frame
-        frSky->sendFrSky05Hz(frSkySerial, dataProvider);
+        frSky.sendFrSky05Hz(frSkySerial, mavDataReader);
         frskyCounter = 0;
     }
     else if ((frskyCounter % 5) == 0) { // Send 1000 ms frame
-        frSky->sendFrSky1Hz(frSkySerial, dataProvider);
+        frSky.sendFrSky1Hz(frSkySerial, mavDataReader);
     } else { // Send 200 ms frame
-        frSky->sendFrSky5Hz(frSkySerial, dataProvider);
+        frSky.sendFrSky5Hz(frSkySerial, mavDataReader);
     }
 }

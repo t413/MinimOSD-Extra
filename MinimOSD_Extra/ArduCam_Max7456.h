@@ -112,7 +112,6 @@ class OSD: public Stream
     void _printf_P(const char *, ...);
         __attribute__ ((format(__printf__, 2, 3)));
 
-    virtual int     txspace(void);
 #define printf_P(fmt, ...) _printf_P((const char *)fmt, ## __VA_ARGS__)
 
   private:

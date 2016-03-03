@@ -1,3 +1,5 @@
+#include "IFrSkyDataProvider.h"
+
 /*Panels variables*/
 //Will come from APM telem port
 
@@ -98,7 +100,7 @@ static uint8_t      osd_switch_last = 100;
 static uint8_t      rotation = 0;
 static unsigned long         osd_switch_time = 0;
 //static unsigned long         descendt = 0;
-static float         palt = 0;
+static float        palt = 0;
 static float        osd_climb = 0;
 //static float        descend = 0;
 
@@ -106,8 +108,9 @@ static float        osd_lat = 0;                    // latidude
 static float        osd_lon = 0;                    // longitude
 static uint8_t      osd_satellites_visible = 0;     // number of satelites
 static uint8_t      osd_fix_type = 0;               // GPS lock 0-1=no fix, 2=2D, 3=3D
-static uint16_t      osd_cog;                        // Course over ground
-static uint16_t        off_course;
+static int32_t      osd_gps_altitude = 0;
+static uint16_t     osd_cog;                        // Course over ground
+static uint16_t     off_course;
 static uint8_t      osd_got_home = 0;               // tels if got home position or not
 static float        osd_home_lat = 0;               // home latidude
 static float        osd_home_lon = 0;               // home longitude
@@ -250,3 +253,29 @@ static int16_t      rssi = -99; // scaled value 0-100%
 static uint8_t      rssiraw_on = 0; 
 static uint8_t      rssi_warn_level = 0;
 
+
+
+/// class to interact with the frsky packet-creation class and mavlink data
+class MavData : public IFrSkyDataProvider {
+public:
+    virtual const int32_t getGpsAltitude()        { return (osd_gps_altitude + 500) / 1000;; }
+    virtual const int     getTemp1()              { return temperature; }
+    virtual const int     getEngineSpeed()        { return osd_throttle; }
+    virtual const int     getFuelLevel()          { return osd_battery_remaining_A; }
+    virtual const int     getTemp2()              { return osd_fix_type * 10 + osd_satellites_visible; }
+    virtual const float   getAltitude()           { return osd_alt; }
+    virtual const float   getGpsGroundSpeed()     { return osd_groundspeed; }
+    virtual const int32_t getLongitude()          { return osd_lon; }
+    virtual const int32_t getLatitude()           { return osd_lat; }
+    virtual const int     getCourse()             { return osd_heading; }
+    virtual const int     getYear()               { return 0; }
+    virtual const int     getDate()               { return 0; }
+    virtual const int     getTime()               { return 0; }
+    virtual const float   getAccX()               { return ToDeg(osd_pitch); }
+    virtual const float   getAccY()               { return ToDeg(osd_roll); }
+    virtual const float   getAccZ()               { return 0; }
+    virtual const float   getBatteryCurrent()     { return osd_curr_A / 100.0f; }
+    virtual const float   getMainBatteryVoltage() { return osd_vbat_A; }
+};
+
+MavData* mavDataReader = new MavData();

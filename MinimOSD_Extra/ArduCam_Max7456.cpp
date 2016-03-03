@@ -346,8 +346,3 @@ void OSD::_printf_P(const char *fmt, ...) {
     vsnprintf(buf, 128, fmt, ap);
     va_end(ap);
 }
-
-int OSD::txspace(void) {
-    // by default claim that there is always space in transmit buffer
-    return(INT_MAX);
-}
